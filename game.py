@@ -18,7 +18,7 @@ player = dw.Player("", 1000, 100)
 # a dictionary where the keys are a string of the drug instance name.
 # used to convert user input into a usable way to call instance methods
 drugs = {"Weed":weed, "Coke":coke, "Heroin":heroin, "Acid":acid, "Meth":meth, "Hash":hash}
-
+init_cost = 0
 
 def text_temp(text, key=None):
     """
@@ -144,11 +144,11 @@ def main_win():
 
     cash_amount_column = [[sg.Text("\nCash:", justification="right", size=(20, 3), font=('Courier', 13, "bold")),
                        sg.Text("\n"+locale.currency(player.money, grouping=True), justification="right", size=(10, 3), font=('Courier', 13, "bold"), key="player cash"),
-                       sg.Text("", size=(8, 3)),
-                       sg.Combo(["Weed", "Coke", "Heroin", "Acid", "Meth", "Hash"], size=(9, 3), key="product"),
-                       sg.Text("", size=(4, 3)), sg.In(size=(8, 3), key="quantity"),
-                       sg.Text("", size=(4, 3)),
-                       sg.Text("\n0.00", justification="right", size=(5, 3), font=('Courier', 13, "bold"))
+                       sg.Text("", size=(7, 3)),
+                       sg.Combo(["Weed", "Coke", "Heroin", "Acid", "Meth", "Hash"], size=(9, 3), key="product", enable_events=True),
+                       sg.Text("", size=(3, 3)),
+                       sg.In(size=(8, 3), key="quantity", enable_events=True),
+                       sg.Text("\n"+locale.currency(init_cost, grouping=True), key="cost", justification="right", size=(13, 3), font=('Courier', 13, "bold"))
                        ]]
 
 
@@ -179,6 +179,16 @@ def main_win():
 
     while True:
         event, values = window.read()
+
+        product = values["product"]
+
+        cost = window["cost"]
+        try:
+            if cost != drugs[product].value * int(values["quantity"]):
+                window["cost"].update("\n"+locale.currency(drugs[values["product"]].value * int(values["quantity"]), grouping=True))
+
+        except:
+            window["cost"].update("\n"+locale.currency(init_cost, grouping=True))
 
         if event ==  sg.WINDOW_CLOSED:
             break
@@ -304,6 +314,8 @@ def highscores_win():
             break
 
     window.close()
+
+
 
 name_entry_win()
 

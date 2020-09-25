@@ -1,7 +1,7 @@
 import random
 import locale
 #class for player
-locale.setlocale(locale.LC_ALL, "")
+
 class Player(object):
 
     def __init__(self,name, money, health = 100):
