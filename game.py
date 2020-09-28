@@ -143,7 +143,7 @@ def main_win():
 
 
     cash_amount_column = [[sg.Text("\nCash:", justification="right", size=(20, 3), font=('Courier', 13, "bold")),
-                       sg.Text("\n"+locale.currency(player.money, grouping=True), justification="right", size=(10, 3), font=('Courier', 13, "bold"), key="player cash"),
+                       sg.Text("\n"+locale.currency(player.money, grouping=True), justification="right", size=(13, 3), font=('Courier', 13, "bold"), key="player cash"),
                        sg.Text("", size=(7, 3)),
                        sg.Combo(["Weed", "Coke", "Heroin", "Acid", "Meth", "Hash"], size=(9, 3), key="product", enable_events=True),
                        sg.Text("", size=(3, 3)),

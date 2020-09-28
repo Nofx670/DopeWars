@@ -1,5 +1,5 @@
 import random
-import locale
+
 #class for player
 
 class Player(object):
@@ -181,21 +181,17 @@ def make_sell_deal(quantity, drug, drugs, player):
 
 def average_price_paid(price1, price2, quan1, quan2, drug, drugs):
     """
-    works out the average price paid of two different deals with different prices and quantitys then updates
+    works out the average price paid for two different deals with different prices and quantitys then updates
     the price paid for that instance of drug
     :return:int
     """
-    print(price1)
-    print(price2)
-    print(quan1)
-    print(quan2)
 
-    av = (quan1*price1)+(quan2*price2)
-    avs = av/(quan2+quan1)
+    price_quants = (quan1*price1)+(quan2*price2)
+    price_avg = price_quants/(quan2+quan1)
 
-    drugs[drug].update_price_paid(avs)
+    drugs[drug].update_price_paid(price_avg)
 
-    return round(avs)
+    return round(price_avg)
 
 
 def set_new_month(drugs, player):
